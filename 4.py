@@ -34,7 +34,26 @@ drawing = [
 
 
 for item in drawing:
-    
+    store = input(f"Enter drawing_number: ")
+    if key == item["drawing_number"]:
+        print(f"Drawing found!")
+        print(f"Current information:") 
+        for key, value in item.items():
+            print(f"{key} : {value}")
+        print(f"What do you want to update?")
+        print(f"1. Revision")  
+        print(f"2. State")    
+        print(f"3. Cancel")                                                              
+        new_revision = input(f" Enter new revision: ")
+        if new_revision:
+            item["Revision"] = new_revision 
+            print("updated")
+
+        new_status = input(f" Enter new status: ")
+        if new_status:
+            item["State"] = new_status 
+            print("updated")
+
 
 #for item in drawing:
 #    print(item)
