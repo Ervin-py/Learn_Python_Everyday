@@ -1,4 +1,3 @@
-# Online Python compiler (interpreter) to run Python online.
 drawing = [
     {
         "drawing_number": "DWG-001",
@@ -49,7 +48,7 @@ while True:
             else:
                 print("Invalid input")
 
-    if choose == "2":
+    elif choose == "2":
         while True:
             user_input = input("Exit? y/n: ")
             if user_input == "y":
@@ -78,7 +77,7 @@ while True:
             else:
                 print("Invalid input")                  
 
-    if choose == "3":
+    elif choose == "3":
         while True:
             user_input = input("Exit? y/n: ")
             if user_input == "y":
@@ -91,45 +90,50 @@ while True:
                 for state in drawing:
                     if state["drawing_number"] == search:
                         found = True
+                        print("Current State: ")
                         for key, value in state.items():
-                            print("Current state: ")
                             print(f"{key} : {value}")
-                            print("1. Drawing number")                            
-                            print("2. Drawing name")
-                            print("3. Status")                            
-                            print("4. Revision")
-                            print("5. Exit")
-                            update = input("Enter here: ")                            
-                            if update == "1":
-                                update_number = input("Enter new number: ")
-                                exists = False
+                            
+                        print("1. Drawing number")                            
+                        print("2. Drawing name")
+                        print("3. Status")                            
+                        print("4. Revision")
+                        print("5. Exit")
+                        update = input("Enter here: ")                            
+                        if update == "1":
+                            update_number = input("Enter new number: ")
+                            exists = False
+                            
+                            for item in drawing:                
+                                if item["drawing_number"] == update_number:
+                                    exists = True
+                                    break
+                            
+                            if exists:
+                                print("Drawing number already exists")
+
+                                                    
+                            else:
+                                state["drawing_number"] = update_number
+                                print("Drawing updated successfully")
                                             
-                                for item_2 in drawing:
-                                    if item_2["drawing_number"] == update_number:
-                                        exists = True
-                                        print("Drawing number already exists")
-                                                
-                                    else:
-                                        item_2["drawing_number"] = update_number
-                                        print("Drawing updated successfully")
-                                                
-                            elif update == "2":
-                                update_name = input("Enter new name: ")
-                                state["name"] = update_name
-                                print("Drawing updated successfully")
-                                
-                            elif update == "3":
-                                update_status = input("Enter new status: ")
-                                state["status"] = update_status
-                                print("Drawing updated successfully")
-                                
-                            elif update == "4":
-                                update_revision = input("Enter new revision: ")
-                                state["revision"] = update_revision
-                                print("Drawing updated successfully")
-                                
-                            elif update == "5":
-                                break
+                        elif update == "2":
+                            update_name = input("Enter new name: ")
+                            state["name"] = update_name
+                            print("Drawing updated successfully")
+                            
+                        elif update == "3":
+                            update_status = input("Enter new status: ")
+                            state["status"] = update_status
+                            print("Drawing updated successfully")
+                            
+                        elif update == "4":
+                            update_revision = input("Enter new revision: ")
+                            state["revision"] = update_revision
+                            print("Drawing updated successfully")
+                            
+                        elif update == "5":
+                            break
                                     
                 if not found:
                     print("Drawing not found") 
@@ -137,7 +141,7 @@ while True:
             else:
                 print("Invalid input")
 
-    if choose == "4":
+    elif choose == "4":
         while True:
             user_input = input("Exit? y/n: ")
             if user_input == "y":
@@ -157,6 +161,9 @@ while True:
                 if not found:
                     print("Drawing not found")
             else:
-                print("Invalid input")  
+                print("Invalid input") 
+                
+    else:
+        print("Invalid Input")
 
 
