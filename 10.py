@@ -26,7 +26,8 @@ while True:
     print("5. List all drawings")
     print("6. Filter by status")
 
-    choose = input("Enter number you want to do: ")
+    chooses = input("Enter number you want to do: ")
+    choose = chooses.strip().isdigit()
 
     if choose == "1":
         while True:
@@ -66,7 +67,7 @@ while True:
                 
                 #should be 7 charactes of length
                 if len(search) != 7:
-                    found = True
+                    valid = True
                     print("Invalid format must be 7 characters: DWG-XXX")
                     print("Ex: DWG-123")
                   
@@ -84,7 +85,7 @@ while True:
                     print("Invalid format last 3 digits must be numbers")
                     print("Ex: DWG-123")
                     
-                elif not found:
+                elif not valid:
                     name = input("Enter name: ")
                     revision = input("Enter revision: ")
                     status = input("Enter status: ")
@@ -130,10 +131,29 @@ while True:
                                 if item["drawing_number"] == update_number:
                                     exists = True
                                     break
-                            
-                            if exists:
-                                print("Drawing number already exists")
 
+                            #should be 7 charactes of length
+                            if len(update_number) != 7:
+                                valid = True
+                                print("Invalid format must be 7 characters: DWG-XXX")
+                                print("Ex: DWG-123")
+                            
+                            #alpha - first 3 digits should be A-z
+                            #upper - first 3 digits can be lower   
+                            elif not update_number[:3].alpha() or update_number[:3].upper() != "DWG":
+                                print("Invalid format must start with: DWG")
+                                print("Ex: DWG-123")
+                                
+                            elif update_number[3] != "-":
+                                print("Invalid format missing dash after DWG")
+                                print("Ex: DWG-123")
+                            
+                            elif not update_number[4:].isdigits():
+                                print("Invalid format last 3 digits must be numbers")
+                                print("Ex: DWG-123")
+                            
+                            elif exists:
+                                print("Drawing number already exists")
                                                     
                             else:
                                 state["drawing_number"] = update_number
@@ -217,58 +237,21 @@ while True:
                 print("WIP")
                 print("Obsolete")
                 user = input("Enter status of drawing you want to filter: ")
-                
-                cap = user.upper()
                 found = False
-                
-                #Show all Released
-                
-                if cap == "RELEASED":
-                    for item in drawing:
-                        if item["status"] == "WIP" or item["status"] == "Obsolete": #skips WIP
-                            continue
-                        dwgno = item["drawing_number"]
-                        dwgname =  item["name"]
-                        rev =  item["revision"]
-                        stats =  item["status"]
-                        print(f"{dwgno} | {dwgname} | {rev} | {stats}")  
 
-                    if not found:
-                        print("No drawings found with that status.")
-                        found = True
+                cap = user.upper()
 
-                
-                elif cap == "WIP":
-                    for item in drawing:
-                        if item["status"] == "Released" or item["status"] == "Obsolete": 
-                            continue
-                        dwgno = item["drawing_number"]
-                        dwgname =  item["name"]
-                        rev =  item["revision"]
-                        stats =  item["status"]
-                        print(f"{dwgno} | {dwgname} | {rev} | {stats}") 
-                        found = True
-
-                    if not found:
-                        print("No drawings found with that status.")
-                        
-                        
-                        
-                elif cap == "OBSOLETE":
-                    for item in drawing:
-                        if item["status"] == "WIP" or item["status"] == "Released": 
-                            continue
+                for item in drawing:
+                    if item["status"].upper() == cap:
                         dwgno = item["drawing_number"]
                         dwgname =  item["name"]
                         rev =  item["revision"]
                         stats =  item["status"]
                         print(f"{dwgno} | {dwgname} | {rev} | {stats}")
                         found = True
-                        
-                    if not found:
-                        print("No drawings found with that status.")
-                else:
-                    print("Invalid format")
+                    
+                if not found:
+                    print("Drawing does not exist")
 
   
                     

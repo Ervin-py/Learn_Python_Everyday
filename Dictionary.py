@@ -104,6 +104,14 @@ print(pizza)
 #if none in the orig dictionary it will be added
 #if there it will be overwritten
 
+new_dict =  {
+            'name': 'Pizza2',
+            'price': 10,
+            'calories_per_slice': 600, 
+            }
+
+pizza.append(new_dict)
+    #add this dictionary in the list of dictionary
 
 
     #deletes specific key name

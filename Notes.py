@@ -42,3 +42,71 @@ for state in drawing:
 #Code
 #drawing_number : 002
 #name : Bolt
+
+
+found = False
+if not found
+#same as
+if found is False
+
+
+ #alpha - first 3 digits should be A-z
+                #upper - first 3 digits can be lower   
+                elif not search[:3].alpha() or search[:3].upper() != "DWG":
+                    print("Invalid format must start with: DWG")
+                    print("Ex: DWG-123")
+                    
+                elif search[3] != "-":
+                    print("Invalid format missing dash after DWG")
+                    print("Ex: DWG-123")
+                
+                elif not search[4:].isdigits():
+                    print("Invalid format last 3 digits must be numbers")
+                    print("Ex: DWG-123")
+
+
+    #.strip() removes spaces around the input (so " 1" becomes "1").
+
+    #int() converts the string to an integer, ignoring leading zeros (so "01" becomes 1).
+    user = input("Enter a number: ")
+    user = int(user.strip())
+
+
+try:
+    number = int(user_input.strip())
+    print("You entered the number:", number)
+except ValueError:
+    print("That wasn’t a valid whole number.")
+
+######
+def get_greeting():
+  return "Hello from a function"
+
+message = get_greeting()
+print(message)
+    #Functions can send data back to the code that called them using the return statement.
+
+    #When a function reaches a return statement, it stops executing and sends the result back:
+
+def x():
+    While True
+
+        if
+            return True
+
+
+
+    if X() means if x is True
+
+
+
+##
+
+
+if status in ["RELEASED", "WIP", "OBSOLETE"]
+
+#is same below
+
+if "RELEASED" == status or "WIP" == status or "OBSOLETE" == status:
+
+###
