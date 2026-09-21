@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-#practice right
-=======
 #practice
->>>>>>> branchA
+
+#practice right
+#practice right
