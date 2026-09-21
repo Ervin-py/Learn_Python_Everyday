@@ -19,6 +19,118 @@ drawing = [
     }
 ]
 
+def search_drawing():
+    while True:    
+    #if True then break (True = Yes)
+        if should_exit():
+            break
+
+        search = input("Enter Drawing number you want to search: ").upper()             
+
+        valid = validate_dwg(search)
+
+        if not valid:
+            continue
+
+        state = search_dwg(drawing, search)
+        
+        if state:
+            print_info(state)
+
+        else:
+            print("Drawing not found")
+
+def add_drawing():
+    while True:
+        if should_exit():
+            break
+
+        search = input("Enter a new drawing number: ").upper()
+
+        valid = validate_dwg(search)
+
+        if not valid:
+            continue
+
+        state = search_dwg(drawing, search)                
+
+        #if state has values
+        if state:
+            print("Drawing already exists")
+            
+        else:
+            add_dwg(search)
+            continue
+
+def update_drawing():
+    while True:
+        if should_exit():
+            break
+        list_dwg(drawing) 
+        search = input("Enter the Drawing number you want to update: ").upper()
+
+        valid = validate_dwg(search)
+
+        if not valid:
+            continue
+
+        state = search_dwg(drawing, search)
+
+        if state:
+            print_info(state)
+            update_dwg(state, drawing)
+        
+        else:
+            print("Drawing not found")   
+
+def delete_drawing():
+    while True:
+        if should_exit():
+            break
+
+        search = input("Enter Drawing Number you want to delete: ").upper()
+
+        valid = validate_dwg(search)
+
+        if not valid:
+            continue
+
+        state = search_dwg(drawing, search)
+
+        if state:
+            drawing.remove(state)
+            print("Drawing deleted succesful")
+            break
+
+        else:
+            print("Drawing not found")
+
+def list_drawing():
+    while True:
+        list_dwg(drawing) 
+        if should_exit():
+            break
+
+def filter_drawing():
+    #FILTER
+        while True:
+            if should_exit():
+                break
+    
+            print("Input: ")
+            print("RELEASED")
+            print("WIP")
+            print("OBSOLETE")
+            search = input("Enter status of drawing you want to filter: ").upper()
+
+            matched = status_filter(drawing, search)
+
+            if matched:
+                list_dwg(matched)
+
+            else:
+                print("Drawing does not exist")  
+
 #def_exit
 def should_exit():
     while True:
@@ -84,7 +196,7 @@ def status_filter(drawing, search):
             results.append(item)
     return results
 
-def list_drawing(drawing):
+def list_dwg(drawing):
     for item in drawing:
 
         dwgno = item["drawing_number"]
@@ -163,7 +275,7 @@ def update_dwg(state, drawing):
         except ValueError:
             print("Invalid format")
 
-def add_drawing(search):
+def add_dwg(search):
     name = input("Enter a new name: ")
     revision = input("Enter a new revision: ").upper().strip()
     if revision.isalpha() and len(revision) != 1 and len(revision) != 0:
@@ -203,120 +315,27 @@ while True:
         choose = int(chooses.strip())
 
         if choose == 1:
-            while True:    
-                #if True then break (True = Yes)
-                if should_exit():
-                    break
 
-                search = input("Enter Drawing number you want to search: ").upper()             
+            search_drawing()
 
-                valid = validate_dwg(search)
-
-                if not valid:
-                    continue
-
-                state = search_dwg(drawing, search)
-                
-                if state:
-                    print_info(state)
-
-                else:
-                    print("Drawing not found")
 
         #ADD
         elif choose == 2:
-            while True:
-                if should_exit():
-                    break
-        
-                search = input("Enter a new drawing number: ").upper()
-
-                valid = validate_dwg(search)
-
-                if not valid:
-                    continue
-
-                state = search_dwg(drawing, search)                
-
-                #if state has values
-                if state:
-                    print("Drawing already exists")
-                    
-                else:
-                    add_drawing(search)
-                    continue
+            add_drawing()
 
         #UPDATE
         elif choose == 3:
-            while True:
-                if should_exit():
-                    break
-                list_drawing(drawing) 
-                search = input("Enter the Drawing number you want to update: ").upper()
+            update_drawing()
 
-                valid = validate_dwg(search)
-
-                if not valid:
-                    continue
-
-                state = search_dwg(drawing, search)
-
-                if state:
-                    print_info(state)
-                    update_dwg(state, drawing)
-                
-                else:
-                    print("Drawing not found")                
-                        
         elif choose == 4:
-            while True:
-                if should_exit():
-                    break
-        
-                search = input("Enter Drawing Number you want to delete: ").upper()
-
-                valid = validate_dwg(search)
-
-                if not valid:
-                    continue
-
-                state = search_dwg(drawing, search)
-
-                if state:
-                    drawing.remove(state)
-                    print("Drawing deleted succesful")
-                    break
-    
-                else:
-                    print("Drawing not found")
+            delete_drawing()
                     
         elif choose == 5:
-            while True:
-                list_drawing(drawing) 
-                if should_exit():
-                    break
-
+            list_drawing()
                                     
         
         elif choose == 6:
-            #FILTER
-            while True:
-                if should_exit():
-                    break
-        
-                print("Input: ")
-                print("RELEASED")
-                print("WIP")
-                print("OBSOLETE")
-                search = input("Enter status of drawing you want to filter: ").upper()
-
-                matched = status_filter(drawing, search)
-
-                if matched:
-                    list_drawing(matched)
-
-                else:
-                    print("Drawing does not exist")                    
+            filter_drawing()               
 
         else:
             print("Please choose from 1-6 only")
