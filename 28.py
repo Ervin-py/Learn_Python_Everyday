@@ -28,10 +28,10 @@ def search_drawing():
     if not valid:
         return
 
-    drawing_found = search_dwg(drawing, search)
+    state = search_dwg(drawing, search)
     
-    if drawing_found:
-        print_info(drawing_found)
+    if state:
+        print_info(state)
 
     else:
         print("Drawing not found")
@@ -51,10 +51,10 @@ def add_drawing():
             continue
 
         #search drawing
-        drawing_found = search_dwg(drawing, search)                
+        state = search_dwg(drawing, search)                
 
-        #if drawing_found has values
-        if drawing_found:
+        #if state has values
+        if state:
             print("Drawing already exists")
             
         else:
@@ -73,11 +73,11 @@ def update_drawing():
         if not valid:
             continue
 
-        drawing_found = search_dwg(drawing, search)
+        state = search_dwg(drawing, search)
 
-        if drawing_found:
-            print_info(drawing_found)
-            update_dwg(drawing_found, drawing)
+        if state:
+            print_info(state)
+            update_dwg(state, drawing)
         
         else:
             print("Drawing not found")   
@@ -94,10 +94,10 @@ def delete_drawing():
         if not valid:
             continue
 
-        drawing_found = search_dwg(drawing, search)
+        state = search_dwg(drawing, search)
 
-        if drawing_found:
-            drawing.remove(drawing_found)
+        if state:
+            drawing.remove(state)
             print("Drawing deleted succesful")
             break
 
@@ -177,15 +177,15 @@ def validate_dwg(search):
 
 def search_dwg(drawing, search):
 
-    for drawing_found in drawing:
-        if drawing_found["drawing_number"] == search:
-            return drawing_found
+    for state in drawing:
+        if state["drawing_number"] == search:
+            return state
     
     #Indentation here if you want to check all the list of dict first
     return None                    
 
-def print_info(drawing_found):
-    for key, value in drawing_found.items():
+def print_info(state):
+    for key, value in state.items():
         print(f"{key} : {value}")
 
 def status_filter(drawing, search):
@@ -204,7 +204,7 @@ def list_dwg(drawing):
         stats =  item["status"]
         print(f"{dwgno} | {dwgname} | {rev} | {stats}")
            
-def update_dwg(drawing_found, drawing):
+def update_dwg(state, drawing):
     while True:
         print("1. Drawing number")                            
         print("2. Drawing name")
@@ -223,14 +223,14 @@ def update_dwg(drawing_found, drawing):
                 if not valid_2:
                     continue
 
-                drawing_found_2 = search_dwg(drawing, search_2)
+                state_2 = search_dwg(drawing, search_2)
 
-                if not drawing_found_2:
+                if not state_2:
                     search_2 = search_2.upper()                                                       
-                    drawing_found["drawing_number"] = search_2
+                    state["drawing_number"] = search_2
                     print("Drawing updated successfully")
 
-                elif drawing_found_2:
+                elif state_2:
                     print("Same drawing number entered")
 
                 else:
@@ -238,7 +238,7 @@ def update_dwg(drawing_found, drawing):
                                 
             elif update == 2:
                 update_name = input("Enter new name: ")
-                drawing_found["name"] = update_name
+                state["name"] = update_name
                 print("Drawing updated successfully")
                 
             elif update == 3:
@@ -247,7 +247,7 @@ def update_dwg(drawing_found, drawing):
                 status = validate_status(status) 
 
                 if status:
-                    drawing_found["status"] = status
+                    state["status"] = status
                     print("Drawing updated successfully")
                     
                 else:
@@ -262,7 +262,7 @@ def update_dwg(drawing_found, drawing):
                     print("Invalid format")
 
                 else:
-                    drawing_found["revision"] = update_revision
+                    state["revision"] = update_revision
                     print("Drawing updated successfully")
                 
             elif update == 5:
