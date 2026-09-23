@@ -55,29 +55,31 @@ def add_drawing():
         print("Drawing already exists")
         
     else:
-            name = input("Enter a new name: ")
-    revision = input("Enter a new revision: ").upper().strip()
-    if revision.isalpha() and len(revision) != 1 and len(revision) != 0:
-        print("Invalid format")
+        name = input("Enter a new name: ")
+        revision = input("Enter a new revision: ").upper().strip()
+        valid_revision = validate_revision(revision)
 
-    else:
-        status = input("Enter a new status: ").upper().strip()
-        status = validate_status(status)
-
-        if status:
-
-            adddrawing = {        
-                    "drawing_number": search,
-                    "name": name,
-                    "revision": revision,
-                    "status": status
-                }
-            drawing.append(adddrawing)
-            print("Drawing Was Added Succesfully") 
+        if not valid_revision:
+            return
 
         else:
-            print("Invalid format")
-            print("Input: RELEASED/WIP/OBSOLETE")
+            status = input("Enter a new status: ").upper().strip()
+            status = validate_status(status)
+
+            if status:
+
+                adddrawing = {        
+                        "drawing_number": search,
+                        "name": name,
+                        "revision": revision,
+                        "status": status
+                    }
+                drawing.append(adddrawing)
+                print("Drawing Was Added Succesfully") 
+
+            else:
+                print("Invalid format")
+                print("Input: RELEASED/WIP/OBSOLETE")
 
 
 
@@ -148,7 +150,17 @@ def filter_drawing():
                 list_dwg(matched)
 
             else:
-                print("Drawing does not exist")  
+                print("Drawing does not exist")
+
+def validate_revision(revision):
+    if revision.isalpha() and len(revision) != 1 and len(revision) != 0:
+        print("Invalid format")
+        print("Input: A-Z, A1-Z1, A2-Z2, etc.")
+        return False
+    
+    else:
+        return True
+
 
 #def_exit
 def should_exit():
