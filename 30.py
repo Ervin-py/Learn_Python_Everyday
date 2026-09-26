@@ -97,7 +97,7 @@ def update_drawing():
             while True:
                     print("1. Drawing number")                            
                     print("2. Drawing name")
-                    print("3. Status")                            
+                    print("3. Status")                           
                     print("4. Revision")
                     print("5. Exit")
                     try:
@@ -301,7 +301,8 @@ def list_dwg(drawing):
 
 while True:
     
-    print("1. Search drawing")
+    print("1. Search Drawing\n2. Add Drawing\n3. Update Drawing\n4. Delete Drawing")
+
     print("5. List all drawings")
     print("6. Filter by status")
     
