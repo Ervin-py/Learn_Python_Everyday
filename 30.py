@@ -184,13 +184,7 @@ def delete_drawing():
         return
 
     else:
-        print("Drawing not found")
-
-def list_drawing():
-    while True:
-        list_dwg(drawing) 
-        if should_exit():
-            break
+        print("Drawing not found")        
 
 def filter_drawing():
     #FILTER
@@ -336,8 +330,11 @@ while True:
                     break
                     
         elif choose == 5:
-            list_drawing()
-                                    
+            while True:
+                list_dwg(drawing)
+
+                if should_exit():
+                    break                                    
         
         elif choose == 6:
             filter_drawing()               
