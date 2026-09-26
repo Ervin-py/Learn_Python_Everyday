@@ -301,7 +301,7 @@ def list_dwg(drawing):
 
 while True:
     
-    print("1. Search drawing\n2. Add drawing\n3. Update drawing\n4. Delete drawing")
+    print("1. Search drawing")
     print("5. List all drawings")
     print("6. Filter by status")
     
