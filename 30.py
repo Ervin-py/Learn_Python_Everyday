@@ -168,7 +168,7 @@ def update_drawing():
             print("Drawing not found")   
 
 def delete_drawing():
-
+    list_dwg(drawing)
     search = input("Enter Drawing Number you want to delete: ").upper()
 
     valid = validate_dwg(search)
