@@ -168,26 +168,23 @@ def update_drawing():
             print("Drawing not found")   
 
 def delete_drawing():
-    while True:
-        if should_exit():
-            break
 
-        search = input("Enter Drawing Number you want to delete: ").upper()
+    search = input("Enter Drawing Number you want to delete: ").upper()
 
-        valid = validate_dwg(search)
+    valid = validate_dwg(search)
 
-        if not valid:
-            continue
+    if not valid:
+        return
 
-        state = search_dwg(drawing, search)
+    state = search_dwg(drawing, search)
 
-        if state:
-            drawing.remove(state)
-            print("Drawing deleted succesful")
-            break
+    if state:
+        drawing.remove(state)
+        print("Drawing deleted succesful")
+        return
 
-        else:
-            print("Drawing not found")
+    else:
+        print("Drawing not found")
 
 def list_drawing():
     while True:
@@ -332,7 +329,11 @@ while True:
                     break
 
         elif choose == 4:
-            delete_drawing()
+            while True:
+                delete_drawing()
+
+                if should_exit():
+                    break
                     
         elif choose == 5:
             list_drawing()
