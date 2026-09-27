@@ -147,9 +147,11 @@ def update_drawing():
                         elif update == 4:
                             update_revision = input("Enter new revision: ").upper().strip()
             
-                            if update_revision.isalpha() and len(update_revision) != 1 and len(update_revision) != 0:
-                                print("Invalid format")
-            
+                            valid = validate_revision(update_revision)
+
+                            if not valid:
+                                continue
+
                             else:
                                 state["revision"] = update_revision
                                 print("Drawing updated successfully")
@@ -194,24 +196,34 @@ def filter_drawing(drawing):
     print("OBSOLETE")
     search = input("Enter status of drawing you want to filter: ").upper()
 
-    results = []
-    for item in drawing:
-        if item["status"].upper().strip() == search:
-            results.append(item)       
-    list_dwg(results)
+    status_check = validate_status(search)
 
-    if not results:
-        print("Drawing does not exist")
+    if status_check:
+        results = []
+        for item in drawing:
+            if item["status"].upper().strip() == search:
+                results.append(item)
+        list_dwg(results)
+
+    else:
+        print("Invalid format")
+        print("Input: RELEASED/WIP/OBSOLETE")
 
 def validate_revision(revision):
-    if revision.isalpha() and len(revision) != 1 and len(revision) != 0:
-        print("Invalid format")
-        print("Input: A-Z, A1-Z1, A2-Z2, etc.")
-        return False
-    
-    else:
+    if revision.isalpha() and len(revision) == 1:
         return True
 
+    elif revision.isalpha() and len(revision) != 1:
+        print("Invalid format")
+        print("One character only")
+        print("Ex: A, B, C")
+        return False
+
+    elif revision.isdigit():
+        print("Invalid format")
+        print("letters only")
+        print("Input: A-Z/a-z only")
+        return False
 
 #def_exit
 def should_exit():
