@@ -186,7 +186,7 @@ def delete_drawing():
     else:
         print("Drawing not found")        
 
-def filter_drawing():
+def filter_drawing(drawing):
         
     print("Input: ")
     print("RELEASED")
@@ -197,12 +197,11 @@ def filter_drawing():
     results = []
     for item in drawing:
         if item["status"].upper().strip() == search:
-            results.append(item)
-            
-        #else:
-            #print("Drawing does not exist")
-        
-    return results
+            results.append(item)       
+    list_dwg(results)
+
+    if not results:
+        print("Drawing does not exist")
 
 def validate_revision(revision):
     if revision.isalpha() and len(revision) != 1 and len(revision) != 0:
@@ -329,7 +328,7 @@ while True:
         
         elif choose == 6:
             while True:
-                filter_drawing()
+                filter_drawing(drawing)
 
                 if should_exit():
                     break             
