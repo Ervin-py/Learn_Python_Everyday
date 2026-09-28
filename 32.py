@@ -287,9 +287,10 @@ def print_info(state):
         print(f"{key} : {value}")
 
 def list_dwg(drawing):
-    for item in drawing:
+    #for item in drawing:
+    search_dwg(item, item["drawing_number"]):
 
-        dwgno = item["drawing_number"]
+        dwgno = state["drawing_number"]
         dwgname =  item["name"]
         rev =  item["revision"]
         stats =  item["status"]
