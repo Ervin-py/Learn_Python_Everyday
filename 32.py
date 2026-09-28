@@ -194,7 +194,7 @@ def filter_drawing(drawing):
     print("RELEASED")
     print("WIP")
     print("OBSOLETE")
-    search = input("Enter status of drawing you want to filter: ").upper()
+    search = input("Enter status of drawing you want to filter: ").upper().strip()
 
     status_check = validate_status(search)
 
@@ -242,7 +242,10 @@ def should_exit():
 def validate_status(status):
 
     if status in ["RELEASED", "WIP", "OBSOLETE"]:
-        return status
+        return True
+
+    else: 
+        return False
 
 def validate_dwg(search):
 
