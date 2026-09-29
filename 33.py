@@ -1,0 +1,345 @@
+drawing = [
+    {
+        "drawing_number": "DWG-001",
+        "name": "Shaft Assembly",
+        "revision": "A",
+        "status": "RELEASED"
+    },
+    {
+        "drawing_number": "DWG-002",
+        "name": "Gear Assembly",
+        "revision": "B",
+        "status": "WIP",
+    },
+    {
+        "drawing_number": "DWG-003",
+        "name": "Motor Assembly",
+        "revision": "C",
+        "status": "OBSOLETE"
+    }
+]
+
+def search_drawing():
+   
+    search = input("Enter Drawing number you want to search: ").upper()             
+
+    valid = validate_dwg(search)
+
+    if not valid:
+        return
+
+    state = search_dwg(drawing, search)
+    
+    if state:
+        print_info(state)
+
+    else:
+        print("Drawing not found")
+
+def add_drawing():
+
+    #user input
+    search = input("Enter a new drawing number: ").upper()
+
+    #validate
+    valid = validate_dwg(search)
+
+    if not valid:
+        return
+
+    #search drawing
+    state = search_dwg(drawing, search)                
+
+    #if state has values
+    if state:
+        print("Drawing already exists")
+        
+    else:
+        name = input("Enter a new name: ")
+        revision = input("Enter a new revision: ").upper().strip()
+        valid_revision = validate_revision(revision)
+
+        if not valid_revision:
+            return
+
+        else:
+            status = input("Enter a new status: ").upper().strip()
+            status = validate_status(status)
+
+            if status:
+
+                adddrawing = {        
+                        "drawing_number": search,
+                        "name": name,
+                        "revision": revision,
+                        "status": status
+                    }
+                drawing.append(adddrawing)
+                print("Drawing Was Added Succesfully") 
+
+            else:
+                print("Invalid format")
+                print("Input: RELEASED/WIP/OBSOLETE")
+
+def update_drawing():
+        list_dwg(drawing) 
+        search = input("Enter the Drawing number you want to update: ").upper()
+
+        valid = validate_dwg(search)
+
+        if not valid:
+            return
+
+        state = search_dwg(drawing, search)
+
+        if state:
+            print_info(state)
+            while True:                          
+                    print("1. Drawing name")
+                    print("2. Status")                           
+                    print("3. Revision")
+                    print("4. Exit")
+                    try:
+                        updates = input("Enter the number: ")  
+                        update = int(updates.strip())
+                        
+                        if update == 1:
+                            search_2 = input("Enter new number: ").upper()                                        
+            
+                            valid_2 = validate_dwg(search_2)
+            
+                            if not valid_2:
+                                continue
+            
+                            state_2 = search_dwg(drawing, search_2)                                 
+                                            
+                        if update == 1:
+                            update_name = input("Enter new name: ")
+                            state["name"] = update_name
+                            print("Drawing updated successfully")
+                            
+                        elif update == 2:
+                            status = input("Enter new status: ").upper().strip() 
+            
+                            status = validate_status(status) 
+            
+                            if status:
+                                state["status"] = status
+                                print("Drawing updated successfully")
+                                
+                            else:
+                                print("Invalid format")
+                                print("Input: RELEASED/WIP/OBSOLETE")
+                                continue                            
+                            
+                        elif update == 3:
+                            update_revision = input("Enter new revision: ").upper().strip()
+            
+                            valid = validate_revision(update_revision)
+
+                            if not valid:
+                                continue
+
+                            else:
+                                state["revision"] = update_revision
+                                print("Drawing updated successfully")
+                            
+                        elif update == 4:
+                            break
+            
+                        else:
+                            print("Please choose from 1-4 only")
+                            
+                    except ValueError:
+                        print("Invalid format")
+
+        
+        else:
+            print("Drawing not found")   
+
+def delete_drawing():
+    list_dwg(drawing)
+    search = input("Enter Drawing Number you want to delete: ").upper()
+
+    valid = validate_dwg(search)
+
+    if not valid:
+        return
+
+    state = search_dwg(drawing, search)
+
+    if state:
+        drawing.remove(state)
+        print("Drawing deleted succesful")
+        return
+
+    else:
+        print("Drawing not found")        
+
+def filter_drawing(drawing):
+        
+    print("Input: ")
+    print("RELEASED")
+    print("WIP")
+    print("OBSOLETE")
+    search = input("Enter status of drawing you want to filter: ").upper().strip()
+
+    status_check = validate_status(search)
+
+    if status_check:
+        results = []
+        for item in drawing:
+            if item["status"].upper().strip() == search:
+                results.append(item)
+        list_dwg(results)
+
+    else:
+        print("Invalid format")
+        print("Input: RELEASED/WIP/OBSOLETE")
+
+def validate_revision(revision):
+    if revision.isalpha() and len(revision) == 1:
+        return True
+
+    elif revision.isalpha() and len(revision) != 1:
+        print("Invalid format")
+        print("One character only")
+        print("Ex: A, B, C")
+        return False
+
+    elif revision.isdigit():
+        print("Invalid format")
+        print("letters only")
+        print("Input: A-Z/a-z only")
+        return False
+
+#def_exit
+def should_exit():
+    while True:
+        user_input = input("Exit? y/n: ").lower().strip()
+        if user_input == "y":
+            return True                    
+
+        elif user_input == "n":
+            return False
+            #False skips the break part
+
+        else:
+            print("Invalid format")
+
+def validate_status(status):
+
+    if status in ["RELEASED", "WIP", "OBSOLETE"]:
+        return True
+
+    else: 
+        return False
+
+def validate_dwg(search):
+
+    #should be 7 charactes of length
+    if len(search) != 7:  
+        print("Invalid format must be 7 characters: DWG-XXX")
+        print("Ex: DWG-123")
+        return False
+    #alpha - first 3 digits should be A-z
+    #upper - first 3 digits can be lower   
+    elif not search[:3].isalpha() or search[:3].upper() != "DWG":
+        print("Invalid format must start with: DWG")
+        print("Ex: DWG-123")
+        return False
+    
+    elif search[3] != "-":                      
+        print("Invalid format missing dash after DWG")
+        print("Ex: DWG-123")
+        return False
+    
+    elif not search[4:].isdigit():                     
+        print("Invalid format last 3 digits must be numbers")
+        print("Ex: DWG-123")
+        return False
+
+    return True
+
+def search_dwg(drawing, search):
+
+    for state in drawing:
+        if state["drawing_number"] == search:
+            return state
+    
+    #Indentation here if you want to check all the list of dict first
+    return None                    
+
+def print_info(state):
+    for key, value in state.items():
+        print(f"{key} : {value}")
+
+def list_dwg(drawing):
+    for item in drawing:
+        dwgno = state["drawing_number"]
+        dwgname =  item["name"]
+        rev =  item["revision"]
+        stats =  item["status"]
+        print(f"{dwgno} | {dwgname} | {rev} | {stats}")    
+
+while True:
+    
+    print("1. Search Drawing\n2. Add Drawing\n3. Update Drawing\n4. Delete Drawing")
+
+    print("5. List all drawings")
+    print("6. Filter by status")
+    
+    try:
+        chooses = input("Enter number you want to do: ")
+        choose = int(chooses.strip())
+
+        if choose == 1:
+            while True:
+                search_drawing()
+                #if True then break (True = Yes)
+                if should_exit():
+                    break
+        #ADD
+        elif choose == 2:
+            while True:
+                add_drawing()
+
+                if should_exit():
+                    break          
+        #UPDATE
+        elif choose == 3:
+            while True:
+                update_drawing()
+
+                if should_exit():
+                    break
+
+        elif choose == 4:
+            while True:
+                delete_drawing()
+
+                if should_exit():
+                    break
+                    
+        elif choose == 5:
+            while True:
+                list_dwg(drawing)
+
+                if should_exit():
+                    break                                    
+        
+        elif choose == 6:
+            while True:
+                filter_drawing(drawing)
+
+                if should_exit():
+                    break             
+
+        else:
+            print("Please choose from 1-6 only")
+
+    except ValueError:
+        print("Invalid format")
+
+
+
