@@ -94,43 +94,21 @@ def update_drawing():
 
         if state:
             print_info(state)
-            while True:
-                    print("1. Drawing number")                            
-                    print("2. Drawing name")
-                    print("3. Status")                           
-                    print("4. Revision")
-                    print("5. Exit")
+            while True:                          
+                    print("1. Drawing name")
+                    print("2. Status")                           
+                    print("3. Revision")
+                    print("4. Exit")
                     try:
                         updates = input("Enter the number: ")  
                         update = int(updates.strip())
                         
                         if update == 1:
-                            search_2 = input("Enter new number: ").upper()                                        
-            
-                            valid_2 = validate_dwg(search_2)
-            
-                            if not valid_2:
-                                continue
-            
-                            state_2 = search_dwg(drawing, search_2)
-
-                            if not state_2:
-                                search_2 = search_2.upper()                                                       
-                                state["drawing_number"] = search_2
-                                print("Drawing updated successfully")
-            
-                            elif search == search_2:
-                                print("Same drawing number entered")
-            
-                            elif state_2:
-                                print("Drawing number already exist")                                  
-                                            
-                        elif update == 2:
                             update_name = input("Enter new name: ")
                             state["name"] = update_name
                             print("Drawing updated successfully")
                             
-                        elif update == 3:
+                        elif update == 2:
                             status = input("Enter new status: ").upper().strip() 
             
                             status = validate_status(status) 
@@ -144,7 +122,7 @@ def update_drawing():
                                 print("Input: RELEASED/WIP/OBSOLETE")
                                 continue                            
                             
-                        elif update == 4:
+                        elif update == 3:
                             update_revision = input("Enter new revision: ").upper().strip()
             
                             valid = validate_revision(update_revision)
@@ -156,11 +134,11 @@ def update_drawing():
                                 state["revision"] = update_revision
                                 print("Drawing updated successfully")
                             
-                        elif update == 5:
+                        elif update == 4:
                             break
             
                         else:
-                            print("Please choose from 1-5 only")
+                            print("Please choose from 1-4 only")
                             
                     except ValueError:
                         print("Invalid format")
