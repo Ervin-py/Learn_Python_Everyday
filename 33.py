@@ -104,16 +104,6 @@ def update_drawing():
                         update = int(updates.strip())
                         
                         if update == 1:
-                            search_2 = input("Enter new number: ").upper()                                        
-            
-                            valid_2 = validate_dwg(search_2)
-            
-                            if not valid_2:
-                                continue
-            
-                            state_2 = search_dwg(drawing, search_2)                                 
-                                            
-                        if update == 1:
                             update_name = input("Enter new name: ")
                             state["name"] = update_name
                             print("Drawing updated successfully")
@@ -276,7 +266,7 @@ def print_info(state):
 
 def list_dwg(drawing):
     for item in drawing:
-        dwgno = state["drawing_number"]
+        dwgno = item["drawing_number"]
         dwgname =  item["name"]
         rev =  item["revision"]
         stats =  item["status"]
