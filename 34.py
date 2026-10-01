@@ -278,16 +278,21 @@ def print_info(state):
     for key, value in state.items():
         print(f"{key} : {value}")
 
-def list_dwg(drawing):
+def list_drawing():
     while True:
-        for item in drawing:
-            dwgno = item["drawing_number"]
-            dwgname =  item["name"]
-            rev =  item["revision"]
-            stats =  item["status"]
-            print(f"{dwgno} | {dwgname} | {rev} | {stats}")    
+        list_dwg(drawing)
         if should_exit():
             break 
+
+def list_dwg(drawing):
+
+    for item in drawing:
+        dwgno = item["drawing_number"]
+        dwgname =  item["name"]
+        rev =  item["revision"]
+        stats =  item["status"]
+        print(f"{dwgno} | {dwgname} | {rev} | {stats}")    
+
 
 while True:
     
@@ -324,7 +329,7 @@ while True:
                     
         elif choose == 5:
 
-            list_dwg(drawing)
+            list_drawing()
 
                                
         
