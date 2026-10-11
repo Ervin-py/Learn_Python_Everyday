@@ -336,7 +336,7 @@ def main():
                 print("Please choose from 1-6 only")
 
         except ValueError:
-            print("Invalid format")
+            print("Please input a number only from 1-6")
 
 if __name__ == "__main__":
     main()
