@@ -292,54 +292,56 @@ def list_dwg(drawing):
         print(f"{dwgno} | {dwgname} | {rev} | {stats}")    
 
 
-while True:
-    
-    print("1. Search Drawing\n2. Add Drawing\n3. Update Drawing\n4. Delete Drawing")
-
-    print("5. List all drawings")
-    print("6. Filter by status")
-    
-    try:
-        chooses = input("Enter number you want to do: ")
-        choose = int(chooses.strip())
-
-        if choose == 1:
-
-            search_drawing(drawing)
-                #if True then break (True = Yes)
-                
-        #ADD
-        elif choose == 2:
-
-            add_drawing(drawing)
+def main():
+    while True:
         
-        #UPDATE
-        elif choose == 3:
+        print("1. Search Drawing\n2. Add Drawing\n3. Update Drawing\n4. Delete Drawing")
 
-            update_drawing(drawing)
+        print("5. List all drawings")
+        print("6. Filter by status")
+        
+        try:
+            chooses = input("Enter number you want to do: ")
+            choose = int(chooses.strip())
 
+            if choose == 1:
 
-        elif choose == 4:
-
-            delete_drawing(drawing)
-
-  
+                search_drawing(drawing)
+                    #if True then break (True = Yes)
                     
-        elif choose == 5:
+            #ADD
+            elif choose == 2:
 
-            list_drawing(drawing)
+                add_drawing(drawing)
+            
+            #UPDATE
+            elif choose == 3:
 
-                               
-        
-        elif choose == 6:
-            filter_drawing(drawing)
-         
-
-        else:
-            print("Please choose from 1-6 only")
-
-    except ValueError:
-        print("Invalid format")
+                update_drawing(drawing)
 
 
+            elif choose == 4:
+
+                delete_drawing(drawing)
+
+    
+                        
+            elif choose == 5:
+
+                list_drawing(drawing)
+
+                                
+            
+            elif choose == 6:
+                filter_drawing(drawing)
+            
+
+            else:
+                print("Please choose from 1-6 only")
+
+        except ValueError:
+            print("Invalid format")
+
+if __name__ == "__main__":
+    main()
 
