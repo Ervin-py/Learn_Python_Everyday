@@ -1,0 +1,26 @@
+[
+    {
+        "drawing_number": "DWG-001",
+        "name": "Shaft Assembly",
+        "revision": "A",
+        "status": "RELEASED"
+    },
+    {
+        "drawing_number": "DWG-002",
+        "name": "Gear Assembly",
+        "revision": "B",
+        "status": "WIP"
+    },
+    {
+        "drawing_number": "DWG-003",
+        "name": "Motor Assembly",
+        "revision": "C",
+        "status": "OBSOLETE"
+    },
+    {
+        "drawing_number": "DWG-004",
+        "name": "bracket",
+        "revision": "A",
+        "status": "WIP"
+    }
+]

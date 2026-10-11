@@ -1,23 +1,14 @@
-drawing = [
-    {
-        "drawing_number": "DWG-001",
-        "name": "Shaft Assembly",
-        "revision": "A",
-        "status": "RELEASED"
-    },
-    {
-        "drawing_number": "DWG-002",
-        "name": "Gear Assembly",
-        "revision": "B",
-        "status": "WIP",
-    },
-    {
-        "drawing_number": "DWG-003",
-        "name": "Motor Assembly",
-        "revision": "C",
-        "status": "OBSOLETE"
-    }
-]
+import json
+
+def load_drawings():
+    with open("drawings.json", "r") as file:
+        return json.load(file)
+
+def save_drawings(drawing):
+    with open("drawings.json", "w") as file:
+        json.dump(drawing, file, indent=4)
+
+     
 
 def search_drawing(drawing):
     while True:
@@ -63,6 +54,7 @@ def add_drawing(drawing):
 
                 create_dwg = create_drawing(search, name, revision, status)
                 drawing.append(create_dwg)
+                save_drawings(drawing)
                 print("Drawing Was Added Succesfully") 
 
             else:
@@ -103,12 +95,15 @@ def update_drawing(drawing):
                                             
                         if update == 1:
                             update_drawing_name(result)
+                            save_drawings(drawing)
                             
                         elif update == 2:
-                            update_drawing_status(result)                        
-                            
+                            update_drawing_status(result)
+                            save_drawings(drawing)
+
                         elif update == 3:
                             update_drawing_revision(result)
+                            save_drawings(drawing)
                             
                         elif update == 4:
                             break
@@ -163,6 +158,7 @@ def delete_drawing(drawing):
 
         if result:
             drawing.remove(result)
+            save_drawings(drawing)
             print("Drawing deleted successfully")
             return
 
@@ -291,8 +287,8 @@ def list_dwg(drawing):
         stats =  item["status"]
         print(f"{dwgno} | {dwgname} | {rev} | {stats}")    
 
-
 def main():
+    drawing = load_drawings()   
     while True:
         
         print("1. Search Drawing\n2. Add Drawing\n3. Update Drawing\n4. Delete Drawing")
