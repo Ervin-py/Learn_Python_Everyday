@@ -64,18 +64,19 @@ class TestValidateDwg(unittest.TestCase):
         result = validate_revision("0")
         self.assertFalse(result)
 
-    def test_special_chars(self):
+    def test_special_chars_validate_revision(self):
         result = validate_revision("@")
         self.assertFalse(result)
 #validate_status
-    def test_valid_status(self):
+    def test_valid_status_WIP(self):
         result = validate_status("WIP")
         self.assertTrue(result)
 
-    def test_valid_status(self):
+    def test_valid_status_RELEASED(self):
         result = validate_status("RELEASED")
         self.assertTrue(result)
-    def test_valid_status(self):
+
+    def test_valid_status_OBSOLETE(self):
         result = validate_status("OBSOLETE")
         self.assertTrue(result)
 
@@ -83,7 +84,7 @@ class TestValidateDwg(unittest.TestCase):
         result = validate_status("kk")
         self.assertFalse(result)
 
-    def test_special_chars(self):
+    def test_special_chars_validate_status(self):
         result = validate_status("@")
         self.assertFalse(result)
 
