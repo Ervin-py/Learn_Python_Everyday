@@ -20,13 +20,25 @@ def save_drawings(drawing):
     except OSError:
         print("Error saving file")
 
+def quit_program(search):
+    if search == "Q":
+        print("Exit succesfully")
+        return True
+    
+    else:
+        return False   
+
+
 def search_drawing(drawing):
     while True:
-        search = input("Enter Drawing number you want to search: ").upper()             
+        search = input("Enter Drawing number you want to search (Q to quit): ").upper()             
+
+        if quit_program(search):
+            break
 
         if not validate_dwg(search):
             return
-
+        
         result = search_dwg(drawing, search)
 
         if result:
@@ -41,7 +53,10 @@ def search_drawing(drawing):
 def add_drawing(drawing):
     while True:
         #user input
-        search = input("Enter a new drawing number: ").upper()
+        search = input("Enter a new drawing number(Q to quit): ").upper()
+
+        if quit_program(search):
+            break
 
         if not validate_dwg(search):
             return
@@ -86,7 +101,10 @@ def create_drawing(search, name, revision, status):
 def update_drawing(drawing):
     while True:
         list_dwg(drawing) 
-        search = input("Enter the Drawing number you want to update: ").upper()
+        search = input("Enter the Drawing number you want to update (Q to quit): ").upper()
+
+        if quit_program(search):
+            break
 
         if not validate_dwg(search):
             return
@@ -159,7 +177,10 @@ def update_drawing_revision(result):
 def delete_drawing(drawing):
     while True:
         list_dwg(drawing)
-        search = input("Enter Drawing Number you want to delete: ").upper()
+        search = input("Enter Drawing Number you want to delete (Q to quit): ").upper()
+
+        if quit_program(search):
+            break
 
         if not validate_dwg(search):
             return
@@ -184,7 +205,10 @@ def filter_drawing(drawing):
         print("RELEASED")
         print("WIP")
         print("OBSOLETE")
-        search = input("Enter status of drawing you want to filter: ").upper().strip()
+        search = input("Enter status of drawing you want to filter (Q to quit): ").upper().strip()
+
+        if quit_program(search):
+            break
 
         if validate_status(search):
             results = []
@@ -305,6 +329,7 @@ def main():
 
         print("5. List all drawings")
         print("6. Filter by status")
+        print("7. Exit")
         
         try:
             chooses = input("Enter number you want to do: ")
@@ -325,28 +350,26 @@ def main():
 
                 update_drawing(drawing)
 
-
             elif choose == 4:
 
-                delete_drawing(drawing)
-
-    
+                delete_drawing(drawing)    
                         
             elif choose == 5:
 
-                list_drawing(drawing)
-
-                                
+                list_drawing(drawing)                               
             
             elif choose == 6:
                 filter_drawing(drawing)
-            
 
+            elif choose == 7:
+                print("Exit succesfully")
+                break
+            
             else:
-                print("Please choose from 1-6 only")
+                print("Please choose from 1-7 only")
 
         except ValueError:
-            print("Please input a number only from 1-6")
+            print("Please input a number only from 1-7")
 
 if __name__ == "__main__":
     main()
