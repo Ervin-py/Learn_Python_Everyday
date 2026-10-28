@@ -1,24 +1,5 @@
-import json
-
-def load_drawings():
-    try:
-        with open("drawings.json", "r") as file:
-            return json.load(file)
-
-    except FileNotFoundError:
-        print("drawings.json not found")
-        return []
-    except json.JSONDecodeError:
-        print("JSON file is corrupted")
-        return []
-
-def save_drawings(drawing):
-    try:
-        with open("drawings.json", "w") as file:
-            json.dump(drawing, file, indent=4)
-
-    except OSError:
-        print("Error saving file")
+from drawing_data import load_drawings, save_drawings
+from drawing_validation import validate_dwg, validate_revision, validate_status
 
 def quit_program(search):
     if search == "Q":
@@ -223,27 +204,6 @@ def filter_drawing(drawing):
         if should_exit():
             break
 
-def validate_revision(revision):
-    if revision.isalpha() and len(revision) == 1:
-        return True
-
-    elif revision.isalpha() and len(revision) != 1:
-        print("Invalid format")
-        print("One character only")
-        print("Ex: A, B, C")
-        return False
-
-    elif revision.isdigit():
-        print("Invalid format")
-        print("letters only")
-        print("Input: A-Z/a-z only")
-        return False
-
-    else:
-        print("Invalid format")
-        print("Ex: A, B, C")
-        print("Input: A-Z/a-z only")
-        return False
 
 #def_exit
 def should_exit():
@@ -259,39 +219,7 @@ def should_exit():
         else:
             print("Invalid format")
 
-def validate_status(status):
 
-    if status in ["RELEASED", "WIP", "OBSOLETE"]:
-        return True
-
-    else: 
-        return False
-
-def validate_dwg(search):
-
-    #should be 7 charactes of length
-    if len(search) != 7:  
-        print("Invalid format must be 7 characters: DWG-XXX")
-        print("Ex: DWG-123")
-        return False
-    #alpha - first 3 digits should be A-z
-    #upper - first 3 digits can be lower   
-    elif not search[:3].isalpha() or search[:3].upper() != "DWG":
-        print("Invalid format must start with: DWG")
-        print("Ex: DWG-123")
-        return False
-    
-    elif search[3] != "-":                      
-        print("Invalid format missing dash after DWG")
-        print("Ex: DWG-123")
-        return False
-    
-    elif not search[4:].isdigit():                     
-        print("Invalid format last 3 digits must be numbers")
-        print("Ex: DWG-123")
-        return False
-
-    return True
 
 def search_dwg(drawing, search):
 
