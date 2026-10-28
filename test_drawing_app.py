@@ -1,13 +1,50 @@
 import unittest
-from drawing_app import search_dwg, validate_dwg, load_drawings
+from drawing_app import search_dwg, validate_dwg
 from drawing_app import validate_revision
 from drawing_app import validate_status
 
 class TestValidateDwg(unittest.TestCase):
+
+    def setUp(self):
+        self.drawing = [
+    {
+        "drawing_number": "DWG-001",
+        "name": "Shaft Assembly",
+        "revision": "A",
+        "status": "RELEASED"
+    },
+    {
+        "drawing_number": "DWG-002",
+        "name": "Gear Assembly",
+        "revision": "B",
+        "status": "WIP"
+    },
+    {
+        "drawing_number": "DWG-003",
+        "name": "Motor Assembly",
+        "revision": "C",
+        "status": "OBSOLETE"
+    },
+    {
+        "drawing_number": "DWG-004",
+        "name": "bracket",
+        "revision": "A",
+        "status": "WIP"
+    }
+]
+
 #validate_dwg
     def test_valid_drawing_number(self):
         result = validate_dwg("DWG-001")
         self.assertTrue(result)
+
+    def test_invalid_drawing_number_wrong_prefix(self):
+        result = validate_dwg("ABC-001")
+        self.assertFalse(result)
+
+    def test_invalid_drawing_number_wrong_separator(self):
+        result = validate_dwg("DWG/001")
+        self.assertFalse(result)    
 
     def test_invalid_drawing_number_short(self):
         result = validate_dwg("ABC-00")
@@ -27,24 +64,20 @@ class TestValidateDwg(unittest.TestCase):
 
 #search_dwg
     def test_valid_drawing(self):
-        drawing = load_drawings()
-        result = search_dwg(drawing, "DWG-001")
+        result = search_dwg(self.drawing, "DWG-001")
         self.assertTrue(result)
 
     def test_invalid_drawing(self):
-        drawing = load_drawings()
-        result = search_dwg(drawing, "DWG-008")
+        result = search_dwg(self.drawing, "DWG-008")
         self.assertFalse(result)
 
     def test_empty_drawing(self):
-        drawing = load_drawings()
         result = search_dwg([], "DWG-001")
         self.assertFalse(result)
 
     def test_expected_drawing(self): 
-        drawing = load_drawings()
         expected_value = "DWG-001"
-        result = search_dwg(drawing, "DWG-001")
+        result = search_dwg(self.drawing, "DWG-001")
         self.assertEqual(expected_value, result["drawing_number"])
 
 #validate_revision 
